@@ -2,9 +2,15 @@
   "name": "electron-quick-start",
   "version": "1.0.0",
   "description": "A minimal Electron application",
-  "main": "main.js",
+  "main": "build/index.js",
   "scripts": {
-    "start": "electron ."
+    "clean":"rm -rf build",
+    "package:mac": "npm run build && electron-packager build --overwrite --platform=darwin --arch=x64 --out=build/out --icon=build/assets/icons/mac/icon.icns",
+    "package:win": "npm run build && electron-packager build --overwrite --platform=win32 --arch=ia32 --out=build/out --icon=build/assets/icons/win/icon.ico",
+    "package:linux": "npm run build && electron-packager . --overwrite --platform=linux --arch=x64 --out=out",
+    "build": "npm run clean && tsc; cp -r src/Client build/ && cp -r src/assets build/",
+    "start": "npm run build && electron build --icns=build/assets/icons/mac/icon.icns",
+    "app": "electron-packager build --overwrite"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
@@ -14,9 +20,23 @@
     "tutorial",
     "demo"
   ],
-  "author": "GitHub",
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "author": "Nasir Sayed",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "~1.7.8"
+    "electron": "~1.7.8",
+    "electron-connect": "^0.6.2",
+    "electron-packager": "^9.1.0",
+    "engine.io": "^3.1.3",
+    "engine.io-client": "^3.1.3",
+    "ps-tree": "^1.1.0",
+    "websocket": "^1.0.24",
+    "ws": "^3.2.0"
+  },
+   "dependencies": {
+    "ps-tree": "^1.1.0",
+    "websocket": "^1.0.24"
   }
 }

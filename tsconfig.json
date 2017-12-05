@@ -1,0 +1,30 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "lib": ["es2015", "es2015.collection", "es2015.core", "es6", "es2016.array.include"],
+    "outDir": "build",
+    "sourceMap": true,
+    "removeComments": true,
+    "declaration": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "isolatedModules": false,
+    "jsx": "react",
+    "allowJs": true
+  },
+  "include": [
+    "./src/Server",
+    "./src/*",
+    "./src/bin"
+  ],
+  "exclude":[
+    "node_modules/",
+    "build/",
+    "sandbox",
+    "**/*.js",
+    "*.js",
+    "./src/html*"
+  ]
+}
