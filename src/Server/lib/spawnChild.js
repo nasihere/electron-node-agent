@@ -4,6 +4,7 @@ const cp = require("child_process");
 const utils_1 = require("../utils");
 const splitVars_1 = require("../Utils/splitVars");
 function spawnChild() {
+    console.log('spawnChild', process);
     let userColor = process.argv[2], message = JSON.parse(process.argv[3]), env = Object.create(process.env), envVars = splitVars_1.splitVars(message.cmd.env), timeUp = 0, child = cp.spawn(message.cmd.cmd, [], {
         shell: true,
         env: Object.assign(env, envVars),

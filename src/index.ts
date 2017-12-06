@@ -1,6 +1,7 @@
 const electron = require('electron');
 // Module to control application life.
 // var electron = require('electron-connect').server.create();
+const { Menu } = require('electron')
 
 import { httpServer } from './Server/httpServer';
 import { tempwsServer } from './Server/wsserver';
@@ -19,7 +20,7 @@ let mainWindow
 function createWindow () {
   // Create the browser window.
   const {width, height} = electron.screen.getPrimaryDisplay().workAreaSize
-console.log(__dirname)
+
   mainWindow = new BrowserWindow({width, height,icon: path.join(__dirname, '/assets/icons')})
   mainWindow.wssPort = tempwsServer.httpserver.address().port
   // and load the index.html of the app.
@@ -39,6 +40,26 @@ console.log(__dirname)
     // when you should delete the corresponding element.
     mainWindow = null
   })
+  var template = [{
+        label: "Application",
+        submenu: [
+            { label: "About Application", selector: "orderFrontStandardAboutPanel:" },
+            { type: "separator" },
+            { label: "Quit", accelerator: "Command+Q", click: function() { app.quit(); }}
+        ]}, {
+        label: "Edit",
+        submenu: [
+            { label: "Undo", accelerator: "CmdOrCtrl+Z", selector: "undo:" },
+            { label: "Redo", accelerator: "Shift+CmdOrCtrl+Z", selector: "redo:" },
+            { type: "separator" },
+            { label: "Cut", accelerator: "CmdOrCtrl+X", selector: "cut:" },
+            { label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" },
+            { label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:" },
+            { label: "Select All", accelerator: "CmdOrCtrl+A", selector: "selectAll:" }
+        ]}
+    ];
+
+    Menu.setApplicationMenu(Menu.buildFromTemplate(template));
 }
 
 // This method will be called when Electron has finished
